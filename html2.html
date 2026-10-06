@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Registration & Room Gallery</title>
+    <style>
+        body {
+            background-image: url('482A7020.JPG');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: sans-serif;
+        }
+
+        .content {
+            color: rgb(29, 4, 251);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            padding-top: 20px;
+            animation: moveText 10s linear infinite;
+            white-space: nowrap;
+            width: max-content;
+        }
+
+        @keyframes moveText {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            flex: 1;
+            min-width: 320px;
+            max-width: 450px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9); 
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        /* Expanded Showcase Container to fit multiple photos */
+        .search-result-card {
+            flex: 1.5;
+            min-width: 350px;
+            max-width: 750px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .form-container h2, .gallery-heading {
+            color: rgb(29, 4, 251);
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgb(29, 4, 251);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: rgb(20, 3, 180);
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: sans-serif;
+            box-sizing: border-box; 
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: rgb(29, 4, 251);
+            outline: none; 
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: rgb(29, 4, 251);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background-color: rgb(20, 3, 180);
+        }
+
+        /* Responsive grid that holds loaded images */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .grid-card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .grid-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .grid-card-title {
+            padding: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            color: rgb(20, 3, 180);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            background: #fafafa;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 850px) {
+            .main-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-container, .search-result-card {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+        /* --- Unified Premium Suite Slider Layout Framework Styles --- */
+        .unified-premium-card
+        {
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider-viewport
+        {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background-color: #0c0f1d;
+        }
+
+        .slider-track
+        {
+            display: flex;
+            width: 300%; /* Spans across 3 screens side-by-side */
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slider-track img
+        {
+            width: 33.333%; /* Each image scales perfectly to full view width width */
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Glassmorphic Luxury Slide Controls Overlay Rules */
+        .slide-badge
+        {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(12, 15, 29, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: #ffffff;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 20px;
+            z-index: 5;
+            letter-spacing: 1px;
+        }
+
+        .slide-nav-btn
+        {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(12, 15, 29, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav-btn:hover
+        {
+            background: rgba(212, 175, 55, 0.85);
+            color: #0c0f1d;
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .slide-nav-btn.prev { left: 15px; }
+        .slide-nav-btn.next { right: 15px; }
+
+        @media (max-width: 600px)
+        {
+            .slider-viewport { height: 260px; }
+        }
+
+
+
+
+        /* 1. Viewport layer restricts visibility to exactly ONE image frame at a time */
+        .slider-viewport
+        {
+            overflow: hidden; /* Crucial: Hides all adjacent out-of-frame images */
+            position: relative;
+            width: 100%;
+        }
+
+        /* 2. Track container stretches to lay out all internal images horizontally */
+        .slider-track
+        {
+            display: flex;
+            width: 100%;
+            transition: transform 0.4s ease-in-out; /* Smooth transition effect */
+            will-change: transform;
+        }
+
+        /* 3. Forces every image to scale perfectly to the size of the viewport wrapper */
+        .slider-track img
+        {
+            width: 100%;
+            flex-shrink: 0; /* Prevents flex items from squishing or collapsing */
+            object-fit: cover; /* Keeps images looking pristine without distorting */
+            display: block;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="content">
+        <h1>Welcome to Aurum</h1>
+</div>
+
+<div class="main-wrapper">
+    <!-- Optimized Showcase Card: Unified Premium Room Module -->
+    <div class="search-result-card">
+        <h3 class="gallery-heading">Available Categories</h3>
+        <p class="subtitle-desc">
+            Explore our unified room options below. Use the overlay arrows to tour the premium suite layout configurations.
+        </p>
+    
+        <!-- 1. Premium Double Room Card -->
+        <div class="unified-premium-card">
+            <div class="card-header-row">
+                <h4 class="grid-card-title">Premium Double</h4>
+            </div>
+            <!-- Interactive Slideshow Viewport Component -->
+            <div class="slider-viewport">
+                <!-- Counter Badge -->
+                <div class="slide-badge">1 / 3</div>
+            
+                <!-- Slides Track -->
+                <div class="slider-track">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Double%20Room/482A6565.JPG" alt="Premium Double Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Double%20Room/DSC_3486.JPG" alt="Premium Double Room Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Double%20Room/DSC_3488.JPG" alt="Premium Double Room Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
+                </div>
+            
+                <!-- Navigation Controls -->
+                <button type="button" class="slide-nav-btn prev" onclick="moveRoomSlide(this, -1)" aria-label="Previous Slide">‹</button>
+                <button type="button" class="slide-nav-btn next" onclick="moveRoomSlide(this, 1)" aria-label="Next Slide">›</button>
+            </div>
+        
+            <!-- Luxe Unified Suite Information space -->
+            <div class="card-body-content">
+                <p class="card-description">
+                    Experience unmatched luxury structured with high-end modern layout architectures, signature fine-linen double beds, high-speed wireless connectivity, and custom room features curated for absolute sanctuary comfort.
+                </p>
+                <div class="card-price-row">
+                    <span class="rate-label">
+                        <span class="status-dot"></span> Available for selected dates
+                    </span>
+                    <button type="button" class="submit-btn" onclick="selectUnifiedRoom('Premium Double')">Select This Category</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Premium Triple Room Card -->
+        <div class="unified-premium-card">
+            <div class="card-header-row">
+                <h4 class="grid-card-title">Premium Triple</h4>
+            </div>
+            <div class="slider-viewport">
+                <div class="slide-badge">1 / 3</div>
+                <div class="slider-track">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Triple%20Room/482A6551.JPG" alt="Premium Triple Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Triple%20Room/DSC_3486.JPG" alt="Premium Triple Room Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Triple%20Room/DSC_3488.JPG" alt="Premium Triple Room Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
+                </div>
+                <button type="button" class="slide-nav-btn prev" onclick="moveRoomSlide(this, -1)" aria-label="Previous Slide">‹</button>
+                <button type="button" class="slide-nav-btn next" onclick="moveRoomSlide(this, 1)" aria-label="Next Slide">›</button>
+            </div>
+            <div class="card-body-content">
+                <p class="card-description">
+                    Experience unmatched luxury structured with high-end modern layout architectures, signature fine-linen double beds, high-speed wireless connectivity, and custom room features curated for absolute sanctuary comfort.
+                </p>
+                <div class="card-price-row">
+                    <span class="rate-label">
+                        <span class="status-dot"></span> Available for selected dates
+                    </span>
+                    <button type="button" class="submit-btn" onclick="selectUnifiedRoom('Premium Triple')">Select This Category</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Premium Quad Room Card -->
+        <div class="unified-premium-card">
+            <div class="card-header-row">
+                <h4 class="grid-card-title">Premium Quad</h4>
+            </div>
+            <div class="slider-viewport">
+                <div class="slide-badge">1 / 3</div>
+                <div class="slider-track">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Quad%20Room/482A6540.JPG" alt="Premium Quad Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Quad%20Room/DSC_3486.JPG" alt="Premium Quad Room Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20Quad%20Room/DSC_3488.JPG" alt="Premium Quad Room Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
+                </div>
+                <button type="button" class="slide-nav-btn prev" onclick="moveRoomSlide(this, -1)" aria-label="Previous Slide">‹</button>
+                <button type="button" class="slide-nav-btn next" onclick="moveRoomSlide(this, 1)" aria-label="Next Slide">›</button>
+            </div> <!-- Fixed viewport closure -->
+            <div class="card-body-content">
+                <p class="card-description">
+                    Experience unmatched luxury structured with high-end modern layout architectures, signature fine-linen double beds, high-speed wireless connectivity, and custom room features curated for absolute sanctuary comfort.
+                </p>
+                <div class="card-price-row">
+                    <span class="rate-label">
+                        <span class="status-dot"></span> Available for selected dates
+                    </span>
+                    <button type="button" class="submit-btn" onclick="selectUnifiedRoom('Premium Quad')">Select This Category</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Premium King Suite Card -->
+        <div class="unified-premium-card">
+            <div class="card-header-row">
+                <h4 class="grid-card-title">Premium King Suite</h4>
+            </div>
+            <div class="slider-viewport">
+                <!-- Uses class and dynamic counter logic matching the other cards -->
+                <div class="slide-badge">1 / 4</div>
+                <div class="slider-track">
+                    <img src="file:///D:/html%20file/uploading/Premium%20King%20Suite/482A6565.JPG" alt="Premium King Suite Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20King%20Suite/DSC_3485.JPG" alt="Premium King Suite Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20King%20Suite/DSC_3486.JPG" alt="Premium King Suite Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="file:///D:/html%20file/uploading/Premium%20King%20Suite/DSC_3510.JPG" alt="Premium King Suite Setup 4" onerror="this.onerror=null; this.src='https://placehold.co'">
+                </div>
+                <button type="button" class="slide-nav-btn prev" onclick="moveRoomSlide(this, -1)" aria-label="Previous Slide">‹</button>
+                <button type="button" class="slide-nav-btn next" onclick="moveRoomSlide(this, 1)" aria-label="Next Slide">›</button>
+            </div> <!-- Fixed viewport closure -->
+            <div class="card-body-content">
+                <p class="card-description">
+                    Experience unmatched luxury structured with high-end modern layout architectures, signature fine-linen double beds, high-speed wireless connectivity, and custom room features curated for absolute sanctuary comfort.
+                </p>
+                <div class="card-price-row">
+                    <span class="rate-label">
+                        <span class="status-dot"></span> Available for selected dates
+                    </span>
+                    <button type="button" class="submit-btn" onclick="selectUnifiedRoom('Premium King Suite')">Select This Category</button>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Closes .search-result-card -->
+</div> <!-- Closes .main-wrapper -->
+
+
+    
+
+    <script>
+        // Restrict calendar picks to today and onwards
+        const todayStr = new Date().toISOString().split('T')[0];
+        document.getElementById('check-in').setAttribute('min', todayStr);
+        document.getElementById('check-out').setAttribute('min', todayStr);
+
+        // Smart dynamic date validation logic
+        document.getElementById('check-in').addEventListener('change', function() {
+            const checkOutInput = document.getElementById('check-out');
+            checkOutInput.setAttribute('min', this.value);
+            
+            // If check-out date is now before the new check-in date, reset it
+            if (checkOutInput.value && checkOutInput.value < this.value) {
+                checkOutInput.value = this.value;
+            }
+        });
+
+        // Form submit behavior handler
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Guest details submitted successfully! Checking premium availability.');
+        });
+
+        // Dynamic Unified Suite Slide Controller Variables
+        let activeSlideIndex = 0;
+        const totalSlidesCount = 3;
+
+        function movePremiumSlide(directionOffset) 
+        {
+            activeSlideIndex += directionOffset;
+    
+        // Infinite looping loop boundaries checks
+        if (activeSlideIndex >= totalSlidesCount)
+        {
+            activeSlideIndex = 0;
+        } else if (activeSlideIndex < 0)
+        {
+            activeSlideIndex = totalSlidesCount - 1;
+        }
+    
+        // Shift track container position smoothly matching chosen slide frame matrix
+        const shiftPercentage = activeSlideIndex * -33.333;
+        document.getElementById('premiumSliderTrack').style.transform = `translateX(${shiftPercentage}%)`;
+    
+        // Update numerical textual counter badge indicator
+        document.getElementById('slideCounter').textContent = `${activeSlideIndex + 1} / ${totalSlidesCount}`;
+        }
+
+        function selectUnifiedRoom()
+        {
+            alert("Premium Double Suite selected! Form values synchronized.");
+        }
+
+
+
+
+        /**
+         * Universally operates any image slider room card completely independent of its neighbors.
+         * @param {HTMLElement} button - The arrow button element that was clicked.
+         * @param {number} direction - The direction rule index: -1 to go left, 1 to go right.
+         */
+        function moveRoomSlide(button, direction) {
+        // 1. Locate the precise slider viewport container being used
+            const viewport = button.closest('.slider-viewport');
+            const track = viewport.querySelector('.slider-track');
+            const badge = viewport.querySelector('.slide-badge');
+            const totalSlides = track.querySelectorAll('img').length;
+    
+        // 2. Fetch the current card's tracking index state safely from the HTML dataset attributes
+            let activeIndex = parseInt(track.dataset.currentIndex || 0);
+    
+        // 3. Move index and loop if boundaries are crossed
+        activeIndex += direction;
+        if (activeIndex >= totalSlides)
+        {
+            activeIndex = 0;
+        } else if (activeIndex < 0)
+        {
+            activeIndex = totalSlides - 1;
+        }
+    
+        // 4. Save the active card state back inside HTML parameters
+        track.dataset.currentIndex = activeIndex;
+    
+        // 5. Shift images horizontally and rewrite layout badge numbers
+        track.style.transform = `translateX(-${activeIndex * 100}%)`;
+        badge.textContent = `${activeIndex + 1} / ${totalSlides}`;
+        }
+
+        /**
+         * Handle card booking selection events
+         * @param {string} roomName - The categorical name of the room clicked.
+         */
+        /*function selectUnifiedRoom(roomName) {
+        console.log(`Room selected: ${roomName}`);
+        // You can replace this alert with code that sends data to your backend checkout system
+        alert(`Thank you for choosing the ${roomName}! Redirecting to checkout parameters...`);
+        }
+        */
+
+        /**
+         * Redirects the user to a booking page while passing the selected room name.
+         * @param {string} roomName - The categorical name of the room clicked.
+         */
+        function selectUnifiedRoom(roomName) {
+        console.log(`Room selected: ${roomName}`);
+    
+        // Encode the room name so it safe to use in a URL (e.g., "Premium Double" becomes "Premium%20Double")
+        const encodedRoom = encodeURIComponent(roomName);
+    
+        // Redirect the browser to your booking page.
+        // This passes the room name in the URL so the next page knows what the user picked!
+        window.location.href = 'html9.html?room=${encodedRoom}';
+        }
+
+
+
+
+        // Keep track of the active slide index for each individual slider viewport
+        /*const sliderStates = new Map();
+
+        function moveRoomSlide(buttonElement, direction) 
+        {
+        // 1. Locate the precise slider viewport container where the user clicked the button
+        const viewport = buttonElement.closest('.slider-viewport');
+        if (!viewport) return;
+
+        const track = viewport.querySelector('.slider-track');
+        const badge = viewport.querySelector('.slide-badge');
+        const totalSlides = track.querySelectorAll('img').length;
+
+        // 2. Initialize or retrieve the active index for this specific module
+        if (!sliderStates.has(viewport)) {
+        sliderStates.set(viewport, 0); // Start at index 0 (Image 1)
+        }
+    
+        let currentIndex = sliderStates.get(viewport);
+
+        // 3. Compute target index coordinates with looping bounds protection
+        currentIndex += direction;
+        if (currentIndex >= totalSlides) {
+        currentIndex = 0; // Wrap around to the start
+        } else if (currentIndex < 0) {
+        currentIndex = totalSlides - 1; // Wrap around to the end
+        }
+
+        // 4. Update memory mapping state
+        sliderStates.set(viewport, currentIndex);
+
+        // 5. Shift the track horizontally via CSS transform properties
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // 6. Refresh the counter string matrix text
+        if (badge) {
+        badge.textContent = `${currentIndex + 1} / ${totalSlides}`;
+        }
+        }
+
+        // Room Selection Action Logic Hook
+        function selectUnifiedRoom(roomCategory)
+        {
+            alert(`You successfully selected the ${roomCategory}!`);
+        }
+
+        */
+
+
+
+    </script>
+
+</body>
+</html>
