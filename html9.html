@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Registration - Aurum</title>
+    <style>
+        /* Base Page Setup Matching a Luxury Theme with Full Page Background Image */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f8fafc;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background-image: url('482A7020.JPG'); 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            overflow-x: hidden; 
+        }
+
+        /* Moving Text Animation Header */
+        .content {
+            color: rgb(29, 4, 251);
+            font-family: sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            padding-top: 20px; 
+            margin-bottom: 20px;
+            animation: moveText 10s linear infinite;
+            white-space: nowrap;
+            width: max-content;
+        }
+
+        @keyframes moveText {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* CHANGED: Container structure made fully transparent */
+        .form-container {
+            background-color: transparent; /* Makes the box background transparent */
+            border: none; /* Removes the grey boundary lines */
+            padding: 20px 0; /* Tightened padding for cleaner transparent layout alignment */
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle separation divider over background */
+            padding-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Adds drop-shadow so white text pops on the background */
+        }
+
+        /* Form Controls Matrix */
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Labels and Input Layout Fields */
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff; /* Switched label to white for easier readability against backgrounds */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        textarea {
+            background-color: rgba(15, 23, 42, 0.75); /* Added slight semi-transparency to input fields so users can see to type */
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: #f8fafc;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Styling for the Auto-Populating Readonly Room Field */
+        input[readonly] {
+            background-color: rgba(0, 0, 0, 0.4) !important;
+            color: #60a5fa !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+            cursor: not-allowed;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* Interactive Submission Action Button */
+        .submit-btn {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Fixed Link Button Layer Configuration */
+        .button-container {
+            position: fixed;
+            bottom: 25px; 
+            right: 25px;  
+            z-index: 1000; 
+        }
+
+        .my-link-button {
+            background-color: rgb(29, 4, 251);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none; 
+            font-family: sans-serif;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s;
+            display: inline-block; 
+        }
+
+        .my-link-button:hover {
+            background-color: rgb(20, 3, 180); 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Welcome Heading Context Link -->
+    <div class="content">Welcome to Aurum Registration Matrix Portal</div>
+
+    <!-- Guest Details Collection Form -->
+    <div class="form-container">
+        <h2>Guest Registration</h2>
+        <form id="registrationForm">
+
+            <div class="form-group">
+                <label for="guest-name">Full Name</label>
+                <input type="text" id="guest-name" placeholder="John Doe" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="guest-email">Email Address</label>
+                <input type="email" id="guest-email" placeholder="john@example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="guest-phone">Phone Number</label>
+                <input type="tel" id="guest-phone" placeholder="+91" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="check-in">Check-in Date</label>
+                    <input type="date" id="check-in" required>
+                </div>
+                <div class="form-group">
+                    <label for="check-out">Check-out Date</label>
+                    <input type="date" id="check-out" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="guest-address">Address</label>
+                <textarea id="guest-address" rows="3" placeholder="Street, City, State, ZIP" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Search Rooms & Register</button>
+        </form>
+    </div>
+
+    <!-- Floating Navigation Control Layer Block -->
+    <div class="button-container">
+        <a href="html2.html" class="my-link-button">Back to Enquiry</a>
+    </div>
+
+    <!-- Script Processing Engine Elements -->
+    <!--<script>
+        // 1. Wait for the layout to finish rendering and capture the room selection from the URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParameters = new URLSearchParams(window.location.search);
+            const pickedRoomCategory = urlParameters.get('room');
+            const roomInputField = document.getElementById('selected-room-category');
+        
+            if (pickedRoomCategory && roomInputField)
+            {
+                roomInputField.value = pickedRoomCategory;
+            } else if (roomInputField)
+            {
+                roomInputField.value = "General Inquiry (No Room Selected)";
+            }
+        });
+
+        // 2. Single, unified form listener to process variables and redirect cleanly
+        const registrationForm = document.getElementById('registrationForm');
+    
+        if (registrationForm)
+        {
+            registrationForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevents the page from refreshing instantly
+            
+                // Gather all input values safely into an object structure
+                const bookingDetails = {
+                    room: document.getElementById('selected-room-category') ? document.getElementById('selected-room-category').value : "General Inquiry",
+                    name: document.getElementById('guest-name') ? document.getElementById('guest-name').value : "Guest",
+                    email: document.getElementById('guest-email') ? document.getElementById('guest-email').value : "",
+                    phone: document.getElementById('guest-phone') ? document.getElementById('guest-phone').value : "",
+                    checkIn: document.getElementById('check-in') ? document.getElementById('check-in').value : "",
+                    checkOut: document.getElementById('check-out') ? document.getElementById('check-out').value : "",
+                    address: document.getElementById('guest-address') ? document.getElementById('guest-address').value : ""
+                };
+            
+                console.log("Registration successfully compiled!", bookingDetails);
+            
+                // Save the guest data to browser session memory so 'html11.html' can read it
+                sessionStorage.setItem('guestName', bookingDetails.name);
+                sessionStorage.setItem('bookedRoom', bookingDetails.room);
+            
+                // Redirect smoothly to your contact & whatsapp page without any blocking alert loops
+                window.location.href = 'html11.html'; 
+            });
+        } else
+        {
+            console.error("Critical Error: Could not find an element with id='registrationForm' on this layout template.");
+        }
+    </script> -->
+
+
+
+        <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            // Stop the page from reloading normally so we can save the data first
+            event.preventDefault();
+
+            // Extract the user values typed into the input fields
+            const fullName = document.getElementById('guest-name').value;
+            const emailAddress = document.getElementById('guest-email').value;
+            const checkInDate = document.getElementById('check-in').value;
+            const checkOutDate = document.getElementById('check-out').value;
+
+            // Save elements securely into sessionStorage memory strings
+            sessionStorage.setItem('guestName', fullName);
+            sessionStorage.setItem('guestEmail', emailAddress);
+            sessionStorage.setItem('checkInDate', checkInDate);
+            sessionStorage.setItem('checkOutDate', checkOutDate);
+
+            // Navigate seamlessly to your finished confirmation dashboard file
+            window.location.href = 'html11.html';
+        });
+    </script>
+
+</body>
+</html>
