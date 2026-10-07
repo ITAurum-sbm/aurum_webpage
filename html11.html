@@ -195,18 +195,19 @@
         <div class="success-icon">✓</div>
         <h1>Registration Complete!</h1>
         <p class="welcome-msg">
-            Thank you, <span id="guestNameDisplay" class="highlight-text">Valued Guest</span>. Your request for the <span id="roomCategoryDisplay" class="highlight-text">Premium Suite Room</span> has been submitted cleanly.
+            Thank you, <span id="guestNameDisplay" class="highlight-text">Valued Guest</span>. Your request for the <span id="roomCategoryDisplay" class="highlight-text"> Room </span> has been submitted cleanly.
+   
         </p>
 
         <div class="contact-section-title">Hotel Contact Registry</div>
         <div class="contact-grid">
             <div class="contact-card">
                 <h3>Central Help Desk</h3>
-                <p><a href="tel:+917259480427">+91 7259480427</a></p>
+                <p><a href="tel:+918951012121">+91 8951012121</a></p>
             </div>
             <div class="contact-card">
                 <h3>Official Communications</h3>
-                <p><a href="mailto:devil99kingtest@gmail.com">devil99kingtest@gmail.com</a></p>
+                <p><a href="mailto:reservation@theaurum.in">reservation@theaurum.in</a></p>
             </div>
             <div class="contact-card">
                 <h3>Property Location</h3>
@@ -257,8 +258,8 @@
             const savedName = sessionStorage.getItem('guestName') || 'Guest';
             const savedRoom = sessionStorage.getItem('bookedRoom') || 'Premium Suite';
 
-            const messageText = "Hello Aurum, my name is " + savedName + ". I just registered online for the " + savedRoom + " category. I would like to check availability and coordinate my booking details further. Thank you!";
-            const targetPhone = "917259480427";
+            const messageText = "Hello Aurum, my name is " + savedName + ". I just want to enquiry the " + savedRoom + " category. I would like to check availability and coordinate my booking details further. Thank you!";
+            const targetPhone = "918951012121";
 
             // The official, highly compatible API endpoint structure
             const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(messageText)}`;
@@ -268,25 +269,6 @@
             console.log("Launching clean URL:", apiLink);
             window.open(apiLink + "&cachebust=" + new Date().getTime(), '_blank');
         }
-
-
-        /*function getFormData()
-        {
-            const name = document.getElementById('guestName').value;
-            const date1 = document.getElementById('check-in').value;
-            const date2 = document.getElementById('check-out').value;
-            const room = document.getElementById('bookedRoom').value;
-            return { name, date1, date2, room };
-        }*/
-
-
-        /*function goToEmailPage()
-        {
-            const data = getFormData();
-            // Pass data to the next page using URL parameters so the user doesn't retype it
-            const urlParams = `htmlmail.html?name=${encodeURIComponent(data.name)}&date1=${encodeURIComponent(data.date1)}&date2=${encodeURIComponent(data.date2)}&room=${encodeURIComponent(data.room)}`;
-            window.location.href = 'htmlmail.html' + urlParams;
-        }*/
 
         // 1. Grab values immediately when this confirmation page loads
         window.addEventListener('DOMContentLoaded', () => {
