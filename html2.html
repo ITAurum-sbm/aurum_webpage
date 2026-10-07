@@ -209,7 +209,7 @@
         .slider-track
         {
             display: flex;
-            width: 300%; /* Spans across 3 screens side-by-side */
+            width: 100%; /* Spans across 3 screens side-by-side */
             height: 100%;
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -443,6 +443,39 @@
                         <span class="status-dot"></span> Available for selected dates
                     </span>
                     <button type="button" class="submit-btn" onclick="selectUnifiedRoom('Premium King Suite')">Select This Category</button>
+                </div>
+            </div>
+        </div>
+
+                    <!-- 5. Penthouse Card -->
+        <div class="unified-premium-card">
+            <div class="card-header-row">
+                <h4 class="grid-card-title">Penthouse</h4>
+            </div>
+            <div class="slider-viewport">
+                <!-- Update the maximum count to match your total images (e.g., 1 / 5 or 1 / 6) -->
+                <div class="slide-badge">1 / 6</div>
+                <div class="slider-track">
+                    <img src="PentHouse1.jpeg" alt="Penthouse Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="PentHouse2.jpeg" alt="Penthouse Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="PentHouse3.jpeg" alt="Penthouse Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="PentHouse4.jpeg" alt="Penthouse Setup 4" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="PentHouse5.jpeg" alt="Penthouse Setup 5" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <!-- Uncomment the line below if you want to add a 6th image -->
+                    <img src="PentHouse6.jpeg" alt="Penthouse Setup 6" onerror="this.onerror=null; this.src='https://placehold.co'">
+                </div>
+                <button type="button" class="slide-nav-btn prev" onclick="moveRoomSlide(this, -1)" aria-label="Previous Slide">‹</button>
+                    <button type="button" class="slide-nav-btn next" onclick="moveRoomSlide(this, 1)" aria-label="Next Slide">›</button>
+            </div>
+            <div class="card-body-content">
+                <p class="card-description">
+                    Indulge in our exclusive penthouse featuring panoramic skyline views, private terrace space, premium designer furnishings, and bespoke hospitality services.
+                </p>
+                <div class="card-price-row">
+                    <span class="rate-label">
+                        <span class="status-dot"></span> Available for selected dates
+                    </span>
+                    <button type="button" class="submit-btn" onclick="selectUnifiedRoom('Penthouse')">Select This Category</button>
                 </div>
             </div>
         </div>
