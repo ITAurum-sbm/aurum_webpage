@@ -369,7 +369,7 @@
             <div class="slider-viewport">
                 <div class="slide-badge">1 / 3</div>
                 <div class="slider-track">
-                    <img src="Premium%20Triple%20Room/482A6551.JPG" alt="Premium Triple Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="Tripple2.JPG" alt="Premium Triple Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
                     <img src="Premium%20Triple%20Room/DSC_3486.JPG" alt="Premium Triple Room Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
                     <img src="Premium%20Triple%20Room/DSC_3488.JPG" alt="Premium Triple Room Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
                 </div>
@@ -397,7 +397,7 @@
             <div class="slider-viewport">
                 <div class="slide-badge">1 / 3</div>
                 <div class="slider-track">
-                    <img src="482A6540.JPG" alt="Premium Quad Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
+                    <img src="482A6551.JPG" alt="Premium Quad Room Setup 1" onerror="this.onerror=null; this.src='https://placehold.co'">
                     <img src="DSC_3486.JPG" alt="Premium Quad Room Setup 2" onerror="this.onerror=null; this.src='https://placehold.co'">
                     <img src="DSC_3488.JPG" alt="Premium Quad Room Setup 3" onerror="this.onerror=null; this.src='https://placehold.co'">
                 </div>
@@ -575,21 +575,7 @@
         badge.textContent = `${activeIndex + 1} / ${totalSlides}`;
         }
 
-        /**
-         * Handle card booking selection events
-         * @param {string} roomName - The categorical name of the room clicked.
-         */
-        /*function selectUnifiedRoom(roomName) {
-        console.log(`Room selected: ${roomName}`);
-        // You can replace this alert with code that sends data to your backend checkout system
-        alert(`Thank you for choosing the ${roomName}! Redirecting to checkout parameters...`);
-        }
-        */
-
-        /**
-         * Redirects the user to a booking page while passing the selected room name.
-         * @param {string} roomName - The categorical name of the room clicked.
-         */
+    
         function selectUnifiedRoom(roomName) {
         console.log(`Room selected: ${roomName}`);
     
@@ -600,59 +586,6 @@
         // This passes the room name in the URL so the next page knows what the user picked!
         window.location.href = 'html9.html?room=${encodedRoom}';
         }
-
-
-
-
-        // Keep track of the active slide index for each individual slider viewport
-        /*const sliderStates = new Map();
-
-        function moveRoomSlide(buttonElement, direction) 
-        {
-        // 1. Locate the precise slider viewport container where the user clicked the button
-        const viewport = buttonElement.closest('.slider-viewport');
-        if (!viewport) return;
-
-        const track = viewport.querySelector('.slider-track');
-        const badge = viewport.querySelector('.slide-badge');
-        const totalSlides = track.querySelectorAll('img').length;
-
-        // 2. Initialize or retrieve the active index for this specific module
-        if (!sliderStates.has(viewport)) {
-        sliderStates.set(viewport, 0); // Start at index 0 (Image 1)
-        }
-    
-        let currentIndex = sliderStates.get(viewport);
-
-        // 3. Compute target index coordinates with looping bounds protection
-        currentIndex += direction;
-        if (currentIndex >= totalSlides) {
-        currentIndex = 0; // Wrap around to the start
-        } else if (currentIndex < 0) {
-        currentIndex = totalSlides - 1; // Wrap around to the end
-        }
-
-        // 4. Update memory mapping state
-        sliderStates.set(viewport, currentIndex);
-
-        // 5. Shift the track horizontally via CSS transform properties
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-        // 6. Refresh the counter string matrix text
-        if (badge) {
-        badge.textContent = `${currentIndex + 1} / ${totalSlides}`;
-        }
-        }
-
-        // Room Selection Action Logic Hook
-        function selectUnifiedRoom(roomCategory)
-        {
-            alert(`You successfully selected the ${roomCategory}!`);
-        }
-
-        */
-
-
 
     </script>
 
