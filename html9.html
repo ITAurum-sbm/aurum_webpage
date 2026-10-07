@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest Registration - Aurum</title>
     <style>
+        html {
+            background-image: url('482A7020.JPG'); 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            height: 100%;
+        }
         /* Base Page Setup Matching a Luxury Theme with Full Page Background Image */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,13 +23,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 100%; /* Changed from 100vh to 100% */
             box-sizing: border-box;
-            background-image: url('482A7020.JPG'); 
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
             overflow-x: hidden; 
         }
 
@@ -187,7 +190,7 @@
 
             <div class="form-group">
                 <label for="guest-name">Full Name</label>
-                <input type="text" id="guest-name" placeholder="John Doe" required>
+                <input type="text" id="guest-name" placeholder=" " required>
             </div>
             
             <div class="form-group">
@@ -224,59 +227,6 @@
     <div class="button-container">
         <a href="html2.html" class="my-link-button">Back to Enquiry</a>
     </div>
-
-    <!-- Script Processing Engine Elements -->
-    <!--<script>
-        // 1. Wait for the layout to finish rendering and capture the room selection from the URL
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParameters = new URLSearchParams(window.location.search);
-            const pickedRoomCategory = urlParameters.get('room');
-            const roomInputField = document.getElementById('selected-room-category');
-        
-            if (pickedRoomCategory && roomInputField)
-            {
-                roomInputField.value = pickedRoomCategory;
-            } else if (roomInputField)
-            {
-                roomInputField.value = "General Inquiry (No Room Selected)";
-            }
-        });
-
-        // 2. Single, unified form listener to process variables and redirect cleanly
-        const registrationForm = document.getElementById('registrationForm');
-    
-        if (registrationForm)
-        {
-            registrationForm.addEventListener('submit', (event) => {
-                event.preventDefault(); // Prevents the page from refreshing instantly
-            
-                // Gather all input values safely into an object structure
-                const bookingDetails = {
-                    room: document.getElementById('selected-room-category') ? document.getElementById('selected-room-category').value : "General Inquiry",
-                    name: document.getElementById('guest-name') ? document.getElementById('guest-name').value : "Guest",
-                    email: document.getElementById('guest-email') ? document.getElementById('guest-email').value : "",
-                    phone: document.getElementById('guest-phone') ? document.getElementById('guest-phone').value : "",
-                    checkIn: document.getElementById('check-in') ? document.getElementById('check-in').value : "",
-                    checkOut: document.getElementById('check-out') ? document.getElementById('check-out').value : "",
-                    address: document.getElementById('guest-address') ? document.getElementById('guest-address').value : ""
-                };
-            
-                console.log("Registration successfully compiled!", bookingDetails);
-            
-                // Save the guest data to browser session memory so 'html11.html' can read it
-                sessionStorage.setItem('guestName', bookingDetails.name);
-                sessionStorage.setItem('bookedRoom', bookingDetails.room);
-            
-                // Redirect smoothly to your contact & whatsapp page without any blocking alert loops
-                window.location.href = 'html11.html'; 
-            });
-        } else
-        {
-            console.error("Critical Error: Could not find an element with id='registrationForm' on this layout template.");
-        }
-    </script> -->
-
-
 
         <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
