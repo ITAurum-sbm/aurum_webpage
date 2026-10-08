@@ -244,7 +244,7 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const savedName = sessionStorage.getItem('guestName') || 'Guest';
-            const savedRoom = sessionStorage.getItem('bookedRoom') || 'Premium Suite';
+            const savedRoom = sessionStorage.getItem('bookedRoom') || 'Room';
             
             const nameDisplay = document.getElementById('guestNameDisplay');
             const roomDisplay = document.getElementById('roomCategoryDisplay');
@@ -256,7 +256,7 @@
         function openWhatsAppChat()
         {
             const savedName = sessionStorage.getItem('guestName') || 'Guest';
-            const savedRoom = sessionStorage.getItem('bookedRoom') || 'Premium Suite';
+            const savedRoom = sessionStorage.getItem('bookedRoom') || 'Room';
 
             const messageText = "Hello Aurum, my name is " + savedName + ". I just want to enquiry the " + savedRoom + " category. I would like to check availability and coordinate my booking details further. Thank you!";
             const targetPhone = "918951012121";
