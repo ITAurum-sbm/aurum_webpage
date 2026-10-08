@@ -5,177 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest Registration - Aurum</title>
     <style>
-        html {
-            background-image: url('482A7020.JPG'); 
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
-            height: 100%;
-        }
         /* Base Page Setup Matching a Luxury Theme with Full Page Background Image */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #f8fafc;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100%; /* Changed from 100vh to 100% */
-            box-sizing: border-box;
-            overflow-x: hidden; 
-        }
+        html {
+                height: 100%;
+            }
+
+        /* FIX: Using a pseudo-element to lock the background layout from shrinking */
+        html::before
+            {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                background-image: url('482A7020.JPG');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+            }
+
+        body
+            {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #f8fafc;
+                margin: 0;
+                padding: 40px 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: 100%; 
+                box-sizing: border-box;
+                overflow-x: hidden;
+            }
 
         /* Moving Text Animation Header */
-        .content {
-            color: rgb(29, 4, 251);
-            font-family: sans-serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            padding-top: 20px; 
-            margin-bottom: 20px;
-            animation: moveText 10s linear infinite;
-            white-space: nowrap;
-            width: max-content;
-        }
+        .content
+            {
+                color: rgb(29, 4, 251);
+                font-family: sans-serif;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                padding-top: 20px;
+                margin-bottom: 20px;
+                animation: moveText 10s linear infinite;
+                white-space: nowrap;
+                width: max-content;
+            }
 
-        @keyframes moveText {
-            0% { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
-        }
+        @keyframes moveText
+            {
+                0% { transform: translateX(100vw); }
+                100% { transform: translateX(-100%); }
+            }
 
-        /* CHANGED: Container structure made fully transparent */
-        .form-container {
-            background-color: transparent; /* Makes the box background transparent */
-            border: none; /* Removes the grey boundary lines */
-            padding: 20px 0; /* Tightened padding for cleaner transparent layout alignment */
-            width: 100%;
-            max-width: 600px;
-        }
+        /* Container structure made fully transparent */
+        .form-container
+            {
+                background-color: transparent; 
+                border: none; 
+                padding: 20px 0; 
+                width: 100%;
+                max-width: 600px;
+            }
 
-        .form-container h2 {
-            margin-top: 0;
-            margin-bottom: 24px;
-            font-size: 28px;
-            font-weight: 600;
-            color: #ffffff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle separation divider over background */
-            padding-bottom: 12px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Adds drop-shadow so white text pops on the background */
-        }
+        .form-container h2
+            {
+                margin-top: 0;
+                margin-bottom: 24px;
+                font-size: 28px;
+                font-weight: 600;
+                color: #ffffff;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+                padding-bottom: 12px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+            }
 
         /* Form Controls Matrix */
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .form-group
+            {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
 
-        .form-row {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+        .form-row
+            {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
 
-        .form-row .form-group {
-            flex: 1;
-            min-width: 200px;
-        }
+        .form-row .form-group
+            {
+                flex: 1;
+                min-width: 200px;
+            }
 
         /* Labels and Input Layout Fields */
-        label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #ffffff; /* Switched label to white for easier readability against backgrounds */
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-        }
+        label
+            {
+                font-size: 14px;
+                font-weight: 500;
+                color: #ffffff; 
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="date"],
-        textarea {
-            background-color: rgba(15, 23, 42, 0.75); /* Added slight semi-transparency to input fields so users can see to type */
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 6px;
-            padding: 12px 16px;
-            color: #f8fafc;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="date"], textarea
+            {
+                background-color: rgba(15, 23, 42, 0.75); 
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                border-radius: 6px;
+                padding: 12px 16px;
+                color: #f8fafc;
+                font-size: 15px;
+                outline: none;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+                width: 100%;
+                box-sizing: border-box;
+            }
 
-        input:focus, textarea:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
+        input:focus, textarea:focus
+            {
+                border-color: #3b82f6;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            }
 
         /* Styling for the Auto-Populating Readonly Room Field */
-        input[readonly] {
-            background-color: rgba(0, 0, 0, 0.4) !important;
-            color: #60a5fa !important;
-            border-color: rgba(255, 255, 255, 0.15) !important;
-            cursor: not-allowed;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+        input[readonly]
+            {
+                background-color: rgba(0, 0, 0, 0.4) !important;
+                color: #60a5fa !important;
+                border-color: rgba(255, 255, 255, 0.15) !important;
+                cursor: not-allowed;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
 
-        textarea {
-            resize: vertical;
-        }
+        textarea
+            {
+                resize: vertical;
+            }
 
         /* Interactive Submission Action Button */
-        .submit-btn {
-            background-color: #2563eb;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            padding: 14px 28px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-        }
+        .submit-btn
+            {
+                background-color: #2563eb;
+                color: #ffffff;
+                border: none;
+                border-radius: 6px;
+                padding: 14px 28px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                width: 100%;
+                margin-top: 10px;
+                transition: background-color 0.2s ease, transform 0.1s ease;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            }
 
-        .submit-btn:hover {
-            background-color: #1d4ed8;
-        }
+        .submit-btn:hover
+            {
+                background-color: #1d4ed8;
+            }
 
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
+        .submit-btn:active
+            {
+                transform: scale(0.98);
+            }
 
         /* Fixed Link Button Layer Configuration */
-        .button-container {
-            position: fixed;
-            bottom: 25px; 
-            right: 25px;  
-            z-index: 1000; 
-        }
+        .button-container
+            {
+                position: fixed;
+                bottom: 25px;
+                right: 25px;
+                z-index: 1000;
+            }
 
-        .my-link-button {
-            background-color: rgb(29, 4, 251);
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none; 
-            font-family: sans-serif;
-            font-weight: bold;
-            border-radius: 5px;
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-            transition: background-color 0.3s;
-            display: inline-block; 
-        }
+        .my-link-button
+            {
+                background-color: rgb(29, 4, 251);
+                color: white;
+                padding: 12px 24px;
+                text-decoration: none;
+                font-family: sans-serif;
+                font-weight: bold;
+                border-radius: 5px;
+                box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+                transition: background-color 0.3s;
+                display: inline-block;
+            }
 
-        .my-link-button:hover {
-            background-color: rgb(20, 3, 180); 
-        }
+        .my-link-button:hover
+            {
+                background-color: rgb(20, 3, 180);
+            }
     </style>
 </head>
 <body>
